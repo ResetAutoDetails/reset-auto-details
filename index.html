@@ -9,6 +9,42 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+  .package details {
+  margin-top: 10px;
+}
+
+.package summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--red);
+  list-style: none;
+}
+
+.package summary::marker {
+  display: none;
+}
+
+.package ul {
+  margin-top: 10px;
+  padding-left: 18px;
+  color: #ddd;
+}
+
+.package ul li {
+  margin-bottom: 6px;
+}
+
+.badge {
+  display: inline-block;
+  background: #c1121f;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
   .socials i {
   font-size: 2rem;
   transition: transform 0.2s ease, color 0.2s ease;
@@ -235,21 +271,62 @@ footer {
 <!-- PACKAGES -->
 <section>
   <h2>Detailing Packages</h2>
+
   <div class="packages">
+
+    <!-- EXTERIOR RESET -->
     <div class="package">
-      <h3>Basic Reset</h3>
-      <p>Exterior wash & interior wipe down.</p>
+      <h3>Exterior Reset</h3>
+      <p>Professional exterior-only detail.</p>
+
+      <details>
+        <summary>View what's included</summary>
+        <ul>
+          <li>Pre wash</li>
+          <li>Hand wash & hand dry</li>
+          <li>Glass & door jambs cleaned</li>
+          <li>Tire shine</li>
+        </ul>
+      </details>
+
+      <p><strong>Starting at $XX</strong></p>
     </div>
+
+    <!-- INTERIOR RESET -->
     <div class="package">
-      <h3>Full Reset</h3>
-      <p>Interior & exterior deep clean.</p>
+      <h3>Interior Reset</h3>
+      <p>Deep interior refresh.</p>
+
+      <details>
+        <summary>View what's included</summary>
+        <ul>
+          <li>All surfaces vacuumed</li>
+          <li>Clean floor mats</li>
+          <li>Scrub carpet & upholstery</li>
+          <li>Interior glass & doors cleaned</li>
+          <li>Matte finish</li>
+        </ul>
+      </details>
+
+      <p><strong>Starting at $XX</strong></p>
     </div>
+
+    <!-- FULL RESET -->
     <div class="package">
-      <h3>Deep Reset</h3>
-      <p>Complete restoration-style detail.</p>
+      <h3>
+        Full Reset
+        <span class="badge">BEST VALUE • SAVE $$</span>
+      </h3>
+
+      <p>Complete interior & exterior detail.</p>
+      <p>Includes everything in <strong>Exterior Reset</strong> + <strong>Interior Reset</strong>.</p>
+
+      <p><strong>Starting at $XX</strong></p>
     </div>
+
   </div>
 </section>
+
 
 <!-- CALCULATOR -->
 <section>
