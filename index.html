@@ -276,6 +276,7 @@ footer { text-align:center; padding:40px; border-top:1px solid #222; color:var(-
 
 <script>
 const agreement = document.getElementById('agreement');
+      agreement.addEventListener('change', calculate);
 const pkg = document.getElementById('package');
 const size = document.getElementById('size');
 const condition = document.getElementById('condition');
@@ -284,14 +285,31 @@ const priceOutput = document.getElementById('price');
 const calculator = document.getElementById('calculator');
 
 function calculate() {
-  if (!agreement.checked) { calculator.classList.add('disabled'); priceOutput.textContent = "$0"; return; }
+  const isAgreed = agreement.checked;
+  
+  if (!isAgreed) {
+    calculator.classList.add('disabled');
+    priceOutput.textContent = "$0";
+    return;
+  }
+  
   calculator.classList.remove('disabled');
-  let total = Number(pkg.value) * Number(size.value) * Number(condition.value);
-  addons.forEach(addon => { if (addon.checked) total += Number(addon.value); });
+  
+  let total = Number(pkg.value) || 0;   // make sure default 0
+  total *= Number(size.value) || 1;
+  total *= Number(condition.value) || 1;
+
+  addons.forEach(addon => {
+    if (addon.checked) total += Number(addon.value) || 0;
+  });
+
   priceOutput.textContent = "$" + Math.round(total);
 }
 
-document.querySelectorAll('input, select').forEach(el => el.addEventListener('change', calculate));
+document.querySelectorAll('input.addon, select').forEach(el => {
+  el.addEventListener('change', calculate);
+});
+
 
 // Auto-select package when clicking card
 const packageCards = document.querySelectorAll('.package');
@@ -299,6 +317,7 @@ packageCards.forEach(card => {
   card.addEventListener('click', () => {
     const packageValue = card.getAttribute('data-package');
     pkg.value = packageValue;
+
     calculate();
     document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
   });
