@@ -56,7 +56,7 @@
   margin-top: 10px;
 }
 
-/* Hide the details content by default */
+/* Hide details lists by default */
 .package details ul {
   max-height: 0;
   overflow: hidden;
@@ -66,11 +66,14 @@
   margin-top: 0;
 }
 
-/* When hovering over the package, expand all lists inside it */
-.package:hover details ul {
-  max-height: 500px;
-  margin-top: 10px;
+/* Desktop hover: expand lists */
+@media (hover: hover) and (pointer: fine) {
+  .package:hover details ul {
+    max-height: 500px;
+    margin-top: 10px;
+  }
 }
+
 
 /* Summary styling */
 .package summary {
@@ -455,6 +458,24 @@ packageCards.forEach(card => {
 
     // Optional: scroll to calculator
     document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
+  });
+});
+// Mobile tap toggle for details
+const detailsElements = document.querySelectorAll('.package details');
+
+detailsElements.forEach(detail => {
+  detail.addEventListener('click', (e) => {
+    // Only trigger for touch devices
+    if (window.matchMedia("(hover: none)").matches) {
+      // Prevent summary default expand to allow smooth toggle
+      e.preventDefault();
+      const ul = detail.querySelector('ul');
+      if (ul.style.maxHeight && ul.style.maxHeight !== "0px") {
+        ul.style.maxHeight = "0px";
+      } else {
+        ul.style.maxHeight = "500px"; // same as hover height
+      }
+    }
   });
 });
 
