@@ -53,15 +53,26 @@
 
 /* Details inside package */
 .package details {
+  display: block;
   margin-top: 10px;
 }
 
-.package summary {
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--red);
-  list-style: none;
+/* Hide the details content by default */
+.package ul {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 18px;
+  color: #ddd;
+  margin-top: 0;
 }
+
+/* When hovering over the package, expand the list */
+.package:hover ul {
+  max-height: 500px; /* big enough to show all items */
+  margin-top: 10px;
+}
+
 
 .package summary::marker {
   display: none;
