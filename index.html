@@ -9,6 +9,74 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+  /* PACKAGES STYLING */
+.packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.package {
+  background: #111;
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid #222;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+  cursor: pointer;
+}
+
+.package:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(193, 18, 31, 0.4);
+  border: 1px solid #c1121f;
+}
+
+/* Highlight Full Reset */
+.package.full-reset {
+  border: 2px solid #c1121f;
+  background: #1a1a1a;
+  box-shadow: 0 15px 25px rgba(193, 18, 31, 0.5);
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  background: #c1121f;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+/* Details inside package */
+.package details {
+  margin-top: 10px;
+}
+
+.package summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--red);
+  list-style: none;
+}
+
+.package summary::marker {
+  display: none;
+}
+
+.package ul {
+  margin-top: 10px;
+  padding-left: 18px;
+  color: #ddd;
+}
+
+.package ul li {
+  margin-bottom: 6px;
+}
+
   .package details {
   margin-top: 10px;
 }
@@ -275,7 +343,7 @@ footer {
   <div class="packages">
 
     <!-- EXTERIOR RESET -->
-    <div class="package">
+    <div class="package" data-package="100">
       <h3>Exterior Reset</h3>
       <p>Professional exterior-only detail.</p>
 
@@ -289,11 +357,11 @@ footer {
         </ul>
       </details>
 
-      <p><strong>Starting at $XX</strong></p>
+      <p><strong>Starting at $100</strong></p>
     </div>
 
     <!-- INTERIOR RESET -->
-    <div class="package">
+    <div class="package" data-package="160">
       <h3>Interior Reset</h3>
       <p>Deep interior refresh.</p>
 
@@ -308,11 +376,11 @@ footer {
         </ul>
       </details>
 
-      <p><strong>Starting at $XX</strong></p>
+      <p><strong>Starting at $160</strong></p>
     </div>
 
     <!-- FULL RESET -->
-    <div class="package">
+    <div class="package full-reset" data-package="220">
       <h3>
         Full Reset
         <span class="badge">BEST VALUE • SAVE $$</span>
@@ -321,11 +389,12 @@ footer {
       <p>Complete interior & exterior detail.</p>
       <p>Includes everything in <strong>Exterior Reset</strong> + <strong>Interior Reset</strong>.</p>
 
-      <p><strong>Starting at $XX</strong></p>
+      <p><strong>Starting at $220</strong></p>
     </div>
 
   </div>
 </section>
+
 
 
 <!-- CALCULATOR -->
@@ -436,6 +505,24 @@ function calculate() {
 document.querySelectorAll('input, select').forEach(el =>
   el.addEventListener('change', calculate)
 );
+  // Auto-select package from clicking card
+const packageCards = document.querySelectorAll('.package');
+
+packageCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const packageValue = card.getAttribute('data-package');
+    const pkgSelect = document.getElementById('package');
+    
+    pkgSelect.value = packageValue;
+
+    // Highlight selection in calculator
+    calculate();
+
+    // Optional: scroll to calculator
+    document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
+  });
+});
+
 </script>
 
 </body>
